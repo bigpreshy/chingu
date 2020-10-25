@@ -26,7 +26,7 @@ fetch('https://johnmeade-webdev.github.io/chingu_quiz_api/trial.json').then((res
     //console.log(questions.length);
 //CONSTANTS
 const CORRECT_BONUS = 1;
-const MAX_QUESTIONS = 4;
+const MAX_QUESTIONS = 10;
 
 beginGameNow = () => {
     questionCounter = 0;
