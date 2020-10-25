@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Hello</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <span class="titlehead">Chingu Trivia</span>
+            <nav>
+               <ul>
+                <li>Questions</li>
+                <li>Home</li>  
+               </ul> 
+            </nav>
+        </header>
+
+
+
+       <div class="container">
+           <div class="content">
+               <div>
+                   <p class="numofquestion">Question<span id="current">1</span> /<span id="allquestions">10</span></p>
+               </div>
+
+               <div>
+                <h3 id = "question">What is the capital of Abuja?</h3>
+              
+            
+               
+               <div class="optionsi">
+
+                <div class="options" data-option = "a"><span>Lagos</span></div>
+                <div class="options" data-option = "b">Rivers</div> <br>
+                <div class="options" data-option ="c">Abuja</div>
+                <div class="options" data-option ="d">Ghana</div>
+    
+    
+               </div>
+              
+
+              <!--<h3 id = "score">0</h3> --> 
+              <button id="nextB" onclick="getNewQuestion();">Next</button>
+               <p id = "scorecomment2">Opps, You failed this one</p>
+               <p id = "scorecomment1">Well Done, Correct!</p>
+              
+            </div>
+            </div>
+           
+           
+        
+        
+        
+        
+        </div>
+        
+        <script src="App.js"></script>
+    </body>
+</html>
