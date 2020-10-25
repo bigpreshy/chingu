@@ -1,10 +1,10 @@
 const question = document.getElementById('question'), 
-choices = Array.from(document.getElementsByClassName('options')),
+choices = Array.from(document.getElementsByClassName('options'));
 scoreText = document.getElementById('score');
 
 
 let currentQuestion = {}, acceptingAnswers = false, score = 0, questionCounter = 0, availableQuesions = [], 
-questions = [];
+questions = [], total = 0;
 
 
 fetch('https://johnmeade-webdev.github.io/chingu_quiz_api/trial.json').then((res) => {
@@ -12,9 +12,8 @@ fetch('https://johnmeade-webdev.github.io/chingu_quiz_api/trial.json').then((res
     })
     .then((loadedQuestions) => {
         questions = loadedQuestions;
-        const allquestionsText = document.getElementById('allquestions');
-        
-        allquestionsText.innerText = questions.length;
+        //const allquestionsText = document.getElementById('allquestions');
+        //allquestionsText.innerText = questions.length;
         
 
         
@@ -27,7 +26,7 @@ fetch('https://johnmeade-webdev.github.io/chingu_quiz_api/trial.json').then((res
     //console.log(questions.length);
 //CONSTANTS
 const CORRECT_BONUS = 1;
-const MAX_QUESTIONS = 39;
+const MAX_QUESTIONS = 4;
 
 beginGameNow = () => {
     questionCounter = 0;
@@ -36,18 +35,35 @@ beginGameNow = () => {
     getNewQuestion();
 };
 
+incrementScore = (num) => {
+    score += num;
+   scoreText.innerText = score;
+
+};
+
+
+
 getNewQuestion = () => {
    document.getElementById('nextB').style.visibility = 'hidden';
    document.getElementById('scorecomment2').style.visibility ='hidden';
    document.getElementById('scorecomment1').style.visibility ='hidden';
-   
-    if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-        localStorage.setItem('mostRecentScore', score);
+
+   if (questionCounter == MAX_QUESTIONS) {
+       alert('You have reached the Maximum, Reload!');
+       location.reload()
+    
     }
+   
+   
     
     questionCounter++;
     const currentText = document.getElementById('current');
+    const currentRemark = document.getElementById('currentr');
     currentText.innerText = questionCounter;
+    currentRemark.innerText = questionCounter - 1 ;
+
+    //score
+    currentText
 
   
     
@@ -77,22 +93,29 @@ choices.forEach((choice) => {
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset['option'];
 
-        const manipulateClass = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
-      //  console.log(manipulateClass);
+       let manipulateClass  = 'incorrect';
+
+       if(selectedAnswer == currentQuestion.answer){
+        manipulateClass  = 'correct';
+       }
+       
+        
 
         if (manipulateClass === 'correct') {
-           // incrementScore(CORRECT_BONUS);
+           incrementScore(CORRECT_BONUS);
             document.getElementById('scorecomment1').style.visibility = 'visible';
             document.getElementById('nextB').style.visibility = 'visible';
             
         }
 
         if (manipulateClass === 'incorrect') {
-          //  incrementScore(CORRECT_BONUS);
+          
            
             document.getElementById('scorecomment2').style.visibility = 'visible';
             document.getElementById('nextB').style.visibility = 'visible';
         }
+        
+       
 
         selectedChoice.classList.add(manipulateClass);
 
@@ -100,11 +123,7 @@ choices.forEach((choice) => {
         setTimeout(() => {
             selectedChoice.classList.remove(manipulateClass);
             
-        }, 2000);
+        }, 900);
     });
 });
 
-incrementScore = (num) => {
-    score += num;
-    scoreText.innerText = score;
-};
